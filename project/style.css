@@ -1,0 +1,425 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  min-height: 100vh;
+  background-image: url("imagens/fundo.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* Keep background fixed */
+  padding-left: 70px; /* Same as sidebar width */
+  transition: padding-left 0.3s ease;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+/*sidebar*/
+.sidebar {
+  width: 70px;
+  background-color: #333;
+  color: #fff;
+  padding: 20px 10px;
+  transition: all 0.3s ease;
+  position: fixed;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  z-index: 1000; /* Increased z-index to ensure it's on top */
+  overflow-x: hidden;
+  overflow-y: auto; /* Allow scrolling if content is too tall */
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar.active {
+  width: 250px;
+}
+
+.sidebar .toggle-btn {
+  position: absolute;
+  top: 20px;
+  right: -25px;
+  background: #333;
+  color: #fff;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 50%;
+  z-index: 1001; /* Higher than sidebar */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  transition: transform 0.3s ease;
+}
+
+.sidebar.active .toggle-btn {
+  transform: rotate(180deg);
+}
+
+.sidebar .title {
+  text-align: center;
+  margin-bottom: 30px;
+  margin-top: 15px;
+  cursor: pointer;
+  position: relative;
+  height: 40px; /* Fixed height for better alignment */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* When sidebar is closed, hide "Projetos" text and show » */
+.sidebar .title {
+  font-size: 32px; /* Increased size */
+}
+.sidebar .title .title-text {
+  display: none;
+}
+.sidebar .title::before {
+  content: "»";
+  font-weight: bold;
+}
+
+/* When sidebar is active, show "Projetos" text and hide » */
+.sidebar.active .title {
+  font-size: 24px; /* Increased size for text too */
+}
+.sidebar.active .title .title-text {
+  display: inline;
+}
+.sidebar.active .title::before {
+  content: "";
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar ul li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 15px;
+  cursor: pointer;
+  position: relative;
+  padding: 10px 5px;
+  border-radius: 5px;
+  transition: background-color 0.2s ease;
+  width: 100%;
+}
+
+.sidebar ul li:hover {
+  background-color: #444;
+}
+
+.sidebar ul li .language-header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.sidebar ul li i,
+.sidebar ul li span {
+  flex: 0 0 auto;
+}
+
+.sidebar ul li span {
+  margin-left: 15px;
+  display: none;
+  white-space: nowrap;
+}
+
+.sidebar.active ul li span {
+  display: inline;
+}
+
+/* Improved project list styling */
+.project-list {
+  display: none;
+  margin-left: 30px;
+  margin-top: 10px;
+  padding-left: 10px;
+  border-left: 1px solid #555;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease;
+}
+
+.project-list.active {
+  display: block;
+  max-height: 500px; /* Adjust based on your needs */
+}
+
+/* Make the project list take full width */
+.sidebar ul li .project-list {
+  flex: 0 0 100%;
+  width: 100%;
+}
+
+.project-list a {
+  color: #ddd;
+  text-decoration: none;
+  display: block;
+  padding: 8px 5px;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  width: 100%;
+  text-align: left;
+  margin-bottom: 5px;
+}
+
+.project-list a:hover {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  padding-left: 10px;
+}
+
+/* Adjust main content to accommodate sidebar */
+body.sidebar-active {
+  padding-left: 250px;
+}
+
+/* Main content wrapper to center content */
+.main-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/*img de perfil*/
+.content {
+  width: 400px;
+  height: 500px;
+  border: 1px solid #ccc;
+  background-color: rgba(18, 16, 16, 0.7);
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* This aligns content to the top */
+  padding-top: 10px; /* Add some space from the top edge */
+}
+
+.img-container {
+  /* No need for additional centering if parent handles it */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.img-container button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  background-color: transparent;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.img-container img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+  display: block;
+}
+
+.nome {
+  font-size: 25px;
+  font-weight: bold;
+  color: #fff;
+  margin-top: 10px;
+  font-family: "Poppins", sans-serif;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+}
+
+.apresentacao {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.apresentacao p {
+  margin-top: 10px;
+  width: 80%;
+  text-align: center;
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+}
+
+.sites {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.sites ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: nowrap;
+  width: 100%;
+  margin: 20px auto;
+}
+
+.social-icons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.social-icons a img {
+  width: 40px;
+  transition: transform 0.3s;
+}
+
+.social-icons a img:hover {
+  transform: scale(1.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  /* Keep the sidebar visible and on top */
+  .sidebar {
+    width: 30px;
+    z-index: 1000;
+  }
+
+  .sidebar.active {
+    width: 200px;
+  }
+
+  /* Keep body padding consistent */
+  body {
+    padding-left: 70px;
+    overflow: hidden; /* Prevent scrolling on mobile */
+  }
+
+  body.sidebar-active {
+    padding-left: 70px; /* Keep padding consistent on mobile */
+  }
+
+  /* Add overlay when sidebar is active */
+  .sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999; /* Just below sidebar */
+  }
+
+  .sidebar-overlay.active {
+    display: block;
+  }
+
+  /* Make content smaller on mobile */
+  .content {
+    width: 85%;
+    height: 420px; /* Smaller height on mobile */
+    max-width: 350px; /* Smaller max-width on mobile */
+    margin: auto; /* This centers it vertically and horizontally */
+    padding-top: 5px; /* Less padding on mobile */
+    overflow: hidden; /* Prevent scrolling within content */
+  }
+
+  /* Make profile image smaller on mobile */
+  .img-container img {
+    width: 120px;
+    height: 120px;
+  }
+
+  /* Make text smaller on mobile */
+  .nome {
+    font-size: 22px;
+  }
+
+  .apresentacao p {
+    font-size: 14px;
+    margin-top: 5px;
+  }
+
+  /* Make social icons smaller and better spaced */
+  .social-icons a img {
+    width: 35px;
+  }
+
+  .sites {
+    margin-top: 10px;
+  }
+
+  .sites ul {
+    gap: 15px;
+    margin: 10px auto;
+  }
+
+  /* Ensure content stays centered when sidebar is active */
+  body.sidebar-active .content {
+    margin: auto;
+  }
+
+  /* Make sure the toggle button is visible */
+  .sidebar .toggle-btn {
+    right: -25px;
+  }
+
+  /* Adjust main wrapper to fit viewport and center content */
+  .main-wrapper {
+    min-height: 100vh;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+/* Additional adjustments for very small screens */
+@media (max-width: 480px) {
+  .content {
+    width: 85%;
+    height: 380px; /* Even smaller for very small screens */
+    max-width: 300px;
+  }
+
+  .img-container img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .nome {
+    font-size: 20px;
+  }
+
+  .apresentacao p {
+    font-size: 13px;
+    width: 90%;
+  }
+
+  .social-icons a img {
+    width: 30px;
+  }
+
+  .sites ul {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+}

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Portfólio Nicollas</title>
+        <link rel="stylesheet" href="style.css" />
+        
+        <link rel="icon" href="imagens/favico.ico" type="image/x-icon" />
+        <link rel="shortcut icon" href="imagens/favico.ico" type="image/x-icon" />
+        
+      </head>
+      
+  <body>
+    <div class="sidebar">
+      <div class="toggle-btn" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+      </div>
+      <h2 class="title" onclick="toggleSidebar()">
+        <span class="title-text">Projetos</span>
+      </h2>
+
+      <ul>
+        <li onclick="toggleProjectList(this, 'html-projects')">
+          <i class="fab fa-html5"></i>
+          <span>HTML</span>
+          <div class="project-list" id="html-projects">
+            <a href="#">Projeto HTML 1</a>
+            <a href="#">Projeto HTML 2</a>
+            <a href="#">Projeto HTML 3</a>
+          </div>
+        </li>
+        <li onclick="toggleProjectList(this, 'css-projects')">
+          <i class="fab fa-css3-alt"></i>
+          <span>CSS</span>
+          <div class="project-list" id="css-projects">
+            <a href="#">Projeto CSS 1</a>
+            <a href="#">Projeto CSS 2</a>
+          </div>
+        </li>
+        <li onclick="toggleProjectList(this, 'js-projects')">
+          <i class="fab fa-js"></i>
+          <span>JAVASCRIPT</span>
+          <div class="project-list" id="js-projects">
+            <a href="#">Projeto JS 1</a>
+            <a href="#">Projeto JS 2</a>
+            <a href="#">Projeto JS 3</a>
+          </div>
+        </li>
+        <li onclick="toggleProjectList(this, 'angular-projects')">
+          <i class="fab fa-angular"></i>
+          <span>ANGULAR</span>
+          <div class="project-list" id="angular-projects">
+            <a href="#">Projeto Angular 1</a>
+            <a href="#">Projeto Angular 2</a>
+          </div>
+        </li>
+        <li onclick="toggleProjectList(this, 'next-projects')">
+          <i class="fab fa-react"></i>
+          <span>NEXT</span>
+          <div class="project-list" id="next-projects">
+            <a href="#">Projeto Next 1</a>
+            <a href="#">Projeto Next 2</a>
+          </div>
+        </li>
+        <li onclick="toggleProjectList(this, 'dotnet-projects')">
+          <i class="fab fa-microsoft"></i>
+          <span>.NET</span>
+          <div class="project-list" id="dotnet-projects">
+            <a href="#">Projeto .NET 1</a>
+            <a href="#">Projeto .NET 2</a>
+          </div>
+        </li>
+        <li onclick="toggleProjectList(this, 'spring-projects')">
+          <i class="fab fa-java"></i>
+          <span>SPRING BOOT</span>
+          <div class="project-list" id="spring-projects">
+            <a href="#">Projeto Spring 1</a>
+            <a href="#">Projeto Spring 2</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+    <script>
+      function toggleSidebar() {
+        document.querySelector(".sidebar").classList.toggle("active");
+        document.body.classList.toggle("sidebar-active");
+
+        // Check if overlay element exists before toggling
+        const overlay = document.querySelector(".sidebar-overlay");
+        if (overlay) {
+          overlay.classList.toggle("active");
+        }
+
+        // Close all project lists when sidebar is toggled
+        const projectLists = document.querySelectorAll(".project-list");
+        projectLists.forEach((list) => {
+          list.classList.remove("active");
+        });
+      }
+
+      function toggleProjectList(element, listId) {
+        // Only work if sidebar is active/open
+        if (!document.querySelector(".sidebar").classList.contains("active")) {
+          toggleSidebar();
+          setTimeout(() => {
+            toggleProjectList(element, listId);
+          }, 300); // Wait for sidebar animation to complete
+          return;
+        }
+
+        const projectList = document.getElementById(listId);
+
+        // If project list doesn't exist, exit the function
+        if (!projectList) {
+          console.error(`Project list with ID "${listId}" not found`);
+          return;
+        }
+
+        // Close all other project lists
+        const allLists = document.querySelectorAll(".project-list");
+        allLists.forEach((list) => {
+          if (list.id !== listId) {
+            list.classList.remove("active");
+          }
+        });
+
+        // Toggle the clicked project list
+        projectList.classList.toggle("active");
+
+        // Stop event propagation to prevent sidebar toggle
+        event.stopPropagation();
+      }
+    </script>
+
+    <div class="content">
+      <div class="img-container">
+        <button onclick="tocarMusica()">
+          <img src="imagens/perfil.jpg" alt="pefil" />
+        </button>
+
+        <audio id="musica" loop>
+          <source
+            src="musica/Projota - Muleque De Vila (Ao Vivo) [kzLESxMqnTg].mp3"
+            type="audio/mpeg"
+          />
+        </audio>
+
+        <script>
+          function tocarMusica() {
+            const audio = document.getElementById("musica");
+            audio.play();
+          }
+        </script>
+      </div>
+
+      <div>
+        <p class="nome">Nícollas Mendes Dias</p>
+      </div>
+      <div class="apresentacao">
+        <p>Seja bem-vindo ao meu portfólio.<br /></p>
+        <p>
+          Aqui você encontrará projetos desenvolvidos durante minha formação
+          como programador full stack. Este portfólio reúne aplicações que
+          demonstram minhas habilidades em HTML, CSS, JavaScript e React.
+        </p>
+        <p>
+          Cada projeto reflete meu conhecimento técnico e minha evolução no
+          desenvolvimento de interfaces modernas e sistemas completos.
+        </p>
+      </div>
+      <div class="sites">
+        <ul class="social-icons">
+          <li>
+            <a
+              href="https://www.linkedin.com/in/nicollas-mendes-dias-871357303/?originalSubdomain=br"
+              target="_blank"
+            >
+              <img
+                src="https://img.icons8.com/3d-fluency/94/linkedin.png"
+                alt="LinkedIn"
+              />
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.instagram.com/nicollasmendes.dev/"
+              target="_blank"
+            >
+              <img
+                src="https://img.icons8.com/3d-fluency/94/instagram-new.png"
+                alt="Instagram"
+              />
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/NicollasMDs7" target="_blank">
+              <img
+                src="https://img.icons8.com/3d-fluency/94/github.png"
+                alt="GitHub"
+              />
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>
